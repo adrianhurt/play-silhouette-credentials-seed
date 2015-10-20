@@ -1,0 +1,11 @@
+@()(implicit user: User, messages: Messages)
+
+@import controllers.routes
+
+@views.html.templates.logged(title = "Settings Area", tab = "settings") {
+	
+	<h1 class="text-primary">Settings Area</h1>
+	
+	<h3>This is the Settings Area. Only users with <strong>'master'</strong> role can be here.</h3>
+
+}

@@ -1,0 +1,11 @@
+@()(implicit user: User, messages: Messages)
+
+@import controllers.routes
+
+@views.html.templates.logged(title = "Service A || Service B", tab = "serviceA_or_serviceB") {
+	
+	<h1 class="text-primary">Service A || Service B area</h1>
+	
+	<h3>This is the Service A OR Service B area. Only users with <strong>'serviceA' OR 'serviceB'</strong> services can be here.</h3>
+
+}

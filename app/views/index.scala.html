@@ -1,0 +1,119 @@
+@()(implicit loggedUser: Option[User], messages: Messages)
+
+@import views.html.tags.auth._
+@import controllers.routes
+
+@servicesString(user: User) = @{ user.services match {
+	case Nil => "none"
+	case head :: Nil => head
+	case init :+ last => init.mkString(", ") + " " + Messages("and") + " " + last
+}}
+
+@views.html.templates.default(title = "Home", loggedUser, tab = "index") {
+		
+		<h1 class="text-primary">@Messages("index.title")</h1>
+		
+		<p class="lead">
+			@loggedUser.map { user =>
+				@Html(Messages("index.intro.logged", user.fullName, routes.Application.myAccount, routes.Auth.signOut))
+			}.getOrElse {
+				@Html(Messages("index.intro.notlogged", routes.Auth.signIn, routes.Auth.startSignUp, routes.Auth.forgotPassword))
+			}
+		</p>
+		<p>@Html(Messages("index.explanation"))</p>
+		<p>@Messages("index.example")</p>
+		<ul>
+			<li><span class="text-info">service A</span>: @Messages("index.example.serviceA")</li>
+			<li><span class="text-info">service A</span> @Messages("and") <span class="text-info">service B</span>: @Messages("index.example.serviceA_serviceB")</li>
+			<li><span class="text-warning">master</span>: @Messages("index.example.master")</li>
+		</ul>
+		@loggedUser.map { user =>
+			<p class="lead">@Html(Messages("index.auth.status", s"""<span class="text-success">${user.fullName}</span>""", s"""<span class="text-info">${servicesString(user)}</span>"""))</p>
+		}
+	
+		<table class="table table-striped table-hover">
+		  <thead>
+		    <tr>
+		      <th>@Messages("index.table.section")</th>
+		      <th>@Messages("index.table.authobject")</th>
+		      <th>@Messages("index.table.services")</th>
+					@if(loggedUser.isDefined) {
+						<th>@Messages("index.table.allowed")</th>
+					}
+		      <th>@Messages("index.table.go")</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+			<tr>
+				<td>Index</td>
+				<td>None</td>
+				<td>any</td>
+				@if(loggedUser.isDefined) {
+					<td><span class="glyphicon glyphicon-ok"></span></td>
+				}
+				<td><a href="@routes.Application.index">Index</a></td>
+			</tr>
+			<tr>
+				<td>Service A area</td>
+				<td>WithService("serviceA")</td>
+				<td><span class="text-info">service A</span> or <span class="text-warning">master</span></td>
+				@loggedUser.map { implicit user =>
+					<td>
+						@withServiceOrElse("serviceA") {
+							<span class="glyphicon glyphicon-ok"></span>
+						}{
+							<span class="glyphicon glyphicon-remove"></span>
+						}
+					</td>
+				}
+				<td><a href="@routes.Application.serviceA">Service A area</a></td>
+			</tr>
+			<tr>
+				<td>Service A || Service B</td>
+				<td>WithService("serviceA", "serviceB")</td>
+				<td>(<span class="text-info">service A</span> or <span class="text-info">service B</span>) or <span class="text-warning">master</span></td>
+				@loggedUser.map { implicit user =>
+					<td>
+						@withServiceOrElse("serviceA", "serviceB") {
+							<span class="glyphicon glyphicon-ok"></span>
+						}{
+							<span class="glyphicon glyphicon-remove"></span>
+						}
+					</td>
+				}
+				<td><a href="@routes.Application.serviceAorServiceB">Service A || Service B</a></td>
+			</tr>
+			<tr>
+				<td>Service A && Service B</td>
+				<td><span class="text-primary">WithServices</span>("serviceA", "serviceB")</td>
+				<td>(<span class="text-info">service A</span> and <span class="text-info">service B</span>) or <span class="text-warning">master</span></td>
+				@loggedUser.map { implicit user =>
+					<td>
+						@withServicesOrElse("serviceA", "serviceB") {
+							<span class="glyphicon glyphicon-ok"></span>
+						}{
+							<span class="glyphicon glyphicon-remove"></span>
+						}
+					</td>
+				}
+				<td><a href="@routes.Application.serviceAandServiceB">Service A && Service B</a></td>
+			</tr>
+			<tr>
+				<td>Settings area</td>
+				<td>WithService("master")</td>
+				<td>only <span class="text-warning">master</span></td>
+				@loggedUser.map { implicit user =>
+					<td>
+						@withServiceOrElse("master") {
+							<span class="glyphicon glyphicon-ok"></span>
+						}{
+							<span class="glyphicon glyphicon-remove"></span>
+						}
+					</td>
+				}
+				<td><a href="@routes.Application.settings">Settings area</a></td>
+			</tr>
+		</table>
+
+	}
+	

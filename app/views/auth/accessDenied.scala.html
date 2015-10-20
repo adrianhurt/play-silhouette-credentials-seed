@@ -1,0 +1,6 @@
+@()(implicit loggedUser: Option[User], request: RequestHeader, messages: Messages)
+@views.html.templates.default("Access Denied", loggedUser) {
+	@tags.alertFromRequest(request, "error")
+	<h1 class="text-primary">@Messages("denied.title")</h1>
+	<h3 class="text-danger">@Messages("denied.text")</h3>
+}

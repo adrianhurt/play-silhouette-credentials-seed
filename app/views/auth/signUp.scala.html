@@ -1,0 +1,21 @@
+@(signUpForm: Form[User])(implicit request: RequestHeader, messages: Messages)
+@import b3.vertical.fieldConstructor
+@import controllers.routes
+@default("Sign Up") {
+	@tags.alertFromRequest(request, "error")
+	@b3.form(routes.Auth.handleStartSignUp) {
+		<fieldset>
+			<legend>@Messages("signup.title")</legend>
+			@b3.text(signUpForm("firstName"), '_label -> Messages("field.firstname"), 'placeholder -> "John", 'autofocus -> true )
+			@b3.text(signUpForm("lastName"), '_label -> Messages("field.lastname"), 'placeholder -> "Doe" )
+			@b3.text(signUpForm("nick"), '_label -> Messages("field.nick"), 'placeholder -> "Johny" )
+			@b3.text(signUpForm("email"), '_label -> Messages("field.email"), 'placeholder -> "your@email.com" )
+			@b3.password(signUpForm("password"), '_label -> Messages("field.password"), 'placeholder -> Messages("field.password") )
+			@b3.select(signUpForm("services"), options = User.services.map(s => (s, s)), '_label -> "Select the services you have an account", 'multiple -> true )
+			@b3.submit('class -> "btn btn-primary btn-block"){ @Messages("signup") }
+			<div class="post-form-opts">
+				<p>@Messages("signup.signin.question") <a href="@routes.Auth.signIn">@Messages("signup.signin")</a></p>
+			</div>
+		</fieldset>
+	}
+}

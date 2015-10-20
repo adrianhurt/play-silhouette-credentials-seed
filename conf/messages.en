@@ -1,0 +1,115 @@
+
+################################################################################################
+# COMMON
+
+field.firstname=First name
+field.lastname=Last name
+field.nick=Nick
+field.email=Email
+field.password=Password
+field.password.repeat=Repeat password
+field.services=Services
+
+submit=Submit
+reset=Reset
+back=Back
+go.index=Go to index
+
+################################################################################################
+# TOPBAR
+
+topbar.index=Index
+topbar.myaccount=My account
+topbar.hello=Hello {0}!<br>Your services are: {1}
+
+################################################################################################
+# INDEX
+
+index.title=Authorization example
+index.intro.logged=You are now logged as <span class="text-success">{0}</span>, so you can go to \
+<a href="{1}">My account</a> section to see your contact info.<br>\
+Of course you can <a href="{2}">sign out</a>.
+index.intro.notlogged=Now, you aren''t logged, so you can try to <a href="{0}">sign in</a> or <a href="{1}">sign up</a> and create your own account.<br>\
+If you don''t remember your password, you also can <a href="{2}">reset your password</a> with the traditional email mechanism.
+index.explanation=Each user has one or more services that indicate a specific area or hierarchical level.<br>\
+You can restrict sections to those users who match with a set of services (using logic OR or AND, you can choose).<br>\
+The <span class="text-warning">master</span> role has always full access to everywhere.
+index.example=For example:
+index.example.serviceA=the user has access to the ''service A'' area.
+index.example.serviceA_serviceB=the user has access to ''service A'' and ''service B'' areas.
+index.example.master=full access to every point of the webpage.
+index.auth.status=In this case, you are logged as {0} and your services are: {1}
+index.table.section=Section
+index.table.authobject=Authorization object
+index.table.services=Services needed
+index.table.allowed=Are you allowed?
+index.table.go=Go there and check yourself
+
+################################################################################################
+# MY ACCOUNT
+
+myaccount.title=My account
+
+################################################################################################
+# AUTH
+
+signup=Sign up
+signup.title=Sign up for a new account
+signup.signin.question=Already a member?
+signup.signin=Sign in now
+signup.thanks=Thank you {0} for sign up!
+signup.sent=We''ve just send you an email to {0}. Please follow its instructions to complete your new account.
+signup.ready=You have now your account available
+
+signin=Sign in
+signin.title=Sign in with your credentials
+signin.rememberme=Remember me
+signin.signup.question=Don''t you have an account?
+signin.signup=Sign up now
+signin.forgot.question=Have you forgot your password?
+signin.forgot=Reset it now
+
+signout=Sign out
+
+forgot.title=Have you forgot your password?
+forgot.sent=We''ve just sent an email to {0} with the instructions to reset your password
+forgot.reset.title=Reset your password
+forgot.reseted=Your password has been reseted
+
+changepass=Change password
+changepass.title=Change your password
+changepass.field.current=Current password
+changepass.field.new=New password
+changepass.field.repeat=Repeat password
+
+auth.user.notexists=There is no user with this email
+auth.user.notunique=There is another user with this email
+auth.credentials.incorrect=Incorrect email or password
+auth.passwords.notequal=The passwords must be equal
+auth.password.changed=The password has been successfully changed
+auth.currentpwd.incorrect=The current password is incorrect
+
+denied.title=Access denied!
+denied.text=You have no privileges to be here.
+
+################################################################################################
+# ERRORS
+
+error.unknown.title=Oops, an error occurred
+error.unknown.text=This exception has been logged with id <strong>{0}</strong>.
+error.notfound.title=Handler Not Found
+error.notfound.text=For request ''{0}''
+
+################################################################################################
+# MAILS
+
+mail.welcome.subject=Welcome to MyWeb! Please confirm your account
+mail.welcome.hello=Welcome {0}!
+mail.welcome.prelink=Thanks for signing up for this great webpage! Please verify your email address by clicking the link below.
+mail.welcome.postlink=Note that this link will expire in 24 hours if it''s not activated.
+
+mail.forgotpwd.subject=Reset your MyWeb password
+mail.forgotpwd.prelink=Someone (hopefully you) has requested a password reset for your MyWeb account. Follow the link below to set a new password:
+mail.forgotpwd.postlink=Note that this link will expire in 24 hours. If you don''t wish to reset your password, disregard this email and no action will be taken.
+
+mail.sign=Team MyWeb

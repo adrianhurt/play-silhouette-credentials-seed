@@ -1,0 +1,40 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Authentication pages
+GET		/signup									controllers.Auth.startSignUp
+POST	/signup									controllers.Auth.handleStartSignUp
+GET		/signup/:token					controllers.Auth.signUp(token: String)
+GET		/signin									controllers.Auth.signIn
+POST	/authenticate						controllers.Auth.authenticate
+GET		/signout								controllers.Auth.signOut
+GET		/reset-password					controllers.Auth.forgotPassword
+POST	/reset-password					controllers.Auth.handleForgotPassword
+GET		/reset-password/:token	controllers.Auth.resetPassword(token: String)
+POST	/reset-password/:token	controllers.Auth.handleResetPassword(token: String)
+GET		/change-password				controllers.Auth.changePassword
+POST	/change-password				controllers.Auth.handleChangePassword
+GET		/denied									controllers.Auth.accessDenied
+
+
+# Home page
+GET		/												controllers.Application.index
+GET		/serviceA								controllers.Application.serviceA
+GET		/serviceA_or_ServiceB		controllers.Application.serviceAorServiceB
+GET		/serviceA_and_ServiceB	controllers.Application.serviceAandServiceB
+GET		/settings								controllers.Application.settings
+GET		/myaccount							controllers.Application.myAccount
+
+GET		/lang/$lang<(en|es)>		controllers.Application.selectLang(lang: String)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET		/public/*file						controllers.MyAssets.public(path="/public", file: Asset)
+GET		/lib/*file							controllers.MyAssets.lib(path="/public/lib", file: Asset)
+GET		/css/*file							controllers.MyAssets.css(path="/public/stylesheets", file: Asset)
+GET		/js/*file								controllers.MyAssets.js(path="/public/javascripts", file: Asset)
+GET		/img/*file							controllers.MyAssets.img(path="/public/images", file: Asset)
+GET		/common/css/*file				controllers.MyAssets.commonCss(path="/public/lib/common/stylesheets", file: Asset)
+GET		/common/js/*file				controllers.MyAssets.commonJs(path="/public/lib/common/javascripts", file: Asset)
+GET		/common/img/*file				controllers.MyAssets.commonImg(path="/public/lib/common/images", file: Asset)

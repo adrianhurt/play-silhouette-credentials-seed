@@ -1,0 +1,2 @@
+@(title: String, tab: String = "", styles: Html = Html(""), scripts: Html = Html(""), modals: Html = Html(""))(content: Html)(implicit messages: Messages)
+@default(title, loggedUser = None, withMainTabs = true, tab, styles, scripts, modals)(content)(messages)

@@ -1,0 +1,8 @@
+@(title: String, loggedUser: Option[User] = None)(content: Html)(implicit messages: Messages)
+@views.html.templates.default(title, loggedUser, withMainTabs = false) {
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			@content
+		</div>
+	</div>
+}

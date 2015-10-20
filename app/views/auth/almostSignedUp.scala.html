@@ -1,0 +1,5 @@
+@(user: User)(implicit messages: Messages)
+@default("Almost Signed Up") {
+	<p>@Messages("signup.thanks", user.fullName)</p>
+	<p>@Messages("signup.sent", user.email)</p>
+}
