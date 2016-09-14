@@ -2,10 +2,9 @@ package utils.silhouette
 
 import com.mohiva.play.silhouette.api.Authorization
 import com.mohiva.play.silhouette.impl.authenticators.CookieAuthenticator
-import models.User
 import play.api.mvc.Request
-import play.api.i18n.Messages
 import scala.concurrent.Future
+import models.User
 
 /**
  * Only allows those users that have at least a service of the selected.
@@ -13,7 +12,7 @@ import scala.concurrent.Future
  * Ex: WithService("serviceA", "serviceB") => only users with services "serviceA" OR "serviceB" (or "master") are allowed.
  */
 case class WithService(anyOf: String*) extends Authorization[User, CookieAuthenticator] {
-  def isAuthorized[A](user: User, authenticator: CookieAuthenticator)(implicit r: Request[A], m: Messages) = Future.successful {
+  def isAuthorized[A](user: User, authenticator: CookieAuthenticator)(implicit r: Request[A]) = Future.successful {
     WithService.isAuthorized(user, anyOf: _*)
   }
 }
@@ -28,7 +27,7 @@ object WithService {
  * Ex: Restrict("serviceA", "serviceB") => only users with services "serviceA" AND "serviceB" (or "master") are allowed.
  */
 case class WithServices(allOf: String*) extends Authorization[User, CookieAuthenticator] {
-  def isAuthorized[A](user: User, authenticator: CookieAuthenticator)(implicit r: Request[A], m: Messages) = Future.successful {
+  def isAuthorized[A](user: User, authenticator: CookieAuthenticator)(implicit r: Request[A]) = Future.successful {
     WithServices.isAuthorized(user, allOf: _*)
   }
 }

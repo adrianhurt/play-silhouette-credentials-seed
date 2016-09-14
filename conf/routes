@@ -15,7 +15,6 @@ GET		/reset-password/:token	controllers.Auth.resetPassword(token: String)
 POST	/reset-password/:token	controllers.Auth.handleResetPassword(token: String)
 GET		/change-password				controllers.Auth.changePassword
 POST	/change-password				controllers.Auth.handleChangePassword
-GET		/denied									controllers.Auth.accessDenied
 
 
 # Home page

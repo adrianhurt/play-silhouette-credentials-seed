@@ -1,4 +1,4 @@
-## Play Silhouette Credentials Seed [Play 2.4 - Scala]
+## Play Silhouette Credentials Seed [Play 2.5 - Scala]
 
 This project tries to be an example of how to implement an Authentication and Authorization layer using the [Silhouette authentication library](http://silhouette.mohiva.com).
 
@@ -19,10 +19,10 @@ And please, don't forget starring this project if you consider it has been usefu
 
 Also check my other projects:
 
-* [Play Multidomain Auth [Play 2.4 - Scala]](https://github.com/adrianhurt/play-multidomain-auth)
-* [Play Multidomain Seed [Play 2.4 - Scala]](https://github.com/adrianhurt/play-multidomain-seed)
+* [Play Multidomain Auth [Play 2.5 - Scala]](https://github.com/adrianhurt/play-multidomain-auth)
+* [Play Multidomain Seed [Play 2.5 - Scala]](https://github.com/adrianhurt/play-multidomain-seed)
 * [Play-Bootstrap - Play library for Bootstrap [Scala & Java]](https://adrianhurt.github.io/play-bootstrap)
-* [Play API REST Template [Play 2.4 - Scala]](https://github.com/adrianhurt/play-api-rest-seed)
+* [Play API REST Template [Play 2.5 - Scala]](https://github.com/adrianhurt/play-api-rest-seed)
 
 ### First of all: configure the Mail Plugin
 
@@ -40,27 +40,29 @@ For example, for a gmail email address:
       mock=false
     }
 
+I've implemented `MailService` and `Mailer` to get it easier to use.
+
 ### Silhouette
 
 All the authentication and authorization functionalities are implemented using the [Silhouette authentication library](http://silhouette.mohiva.com). Please check the [documentation](http://silhouette.mohiva.com/docs) first.
 
 The main ideas you have to know to understand the code are:
 
-* Instead of using Dependency Injection for every required Silhouette variable, I've implemented a new superclass of `Environment` that has everything. Thanks to this other [template](https://github.com/KyleU/play-silhouette-postgres-async-seed).
-* I have used some implicit functions to use `LoginInfo` and `PasswordInfo` objects as simple `Strings` and vice versa. It makes clearer the code, but you have to remember that. You can check them at `app/utils/silhouette/Implicits.scala`.
+* Every controller extends `AuthController` that implements some useful utilities, such us the ability to use directly `SecuredAction`, `UnsecuredAction` and `UserAwareAction`
 * The `Auth` controller contains every action related with authentication or authorization.
+* I have used some implicit functions to use `LoginInfo` and `PasswordInfo` objects as simple `Strings` and vice versa. It makes clearer the code, but you have to remember that. You can check them at `app/utils/silhouette/Implicits.scala`.
 
 Let's see some interesting files:
 
-* `app/models/User.scala`:  the user class (with its login info: email and encrypted password). All the users are stored dynamically in a HashMap.
-* `app/models/MailTokenUser.scala`:  implements a token for the web page in case to reset a password or confirm a user's email during a sign up. All the tokens are stored dynamically in a HashMap.
-* `app/utils/silhouette/AuthenticationEnvironment.scala`: extends the `Environment` provided by Silhouette adding every required stuff.
-* `app/utils/silhouette/AuthenticationController.scala`:  declares the Controller that gives all the required functionality for Silhouette library.
-* `app/utils/silhouette/UserService.scala`:  simply retrieves a user from its corresponding LoginInfo.
-* `app/utils/silhouette/PasswordInfoDAO.scala`:  simply retrieves and saves a user's PasswordInfo from its corresponding LoginInfo.
-* `app/utils/silhouette/MailTokenUserService.scala`:  implements the corresponding MailTokenService[MailToken].
-* `app/utils/silhouette/Authorization.scala`:  provides the corresponding `Authorization` classes.
-* `app/utils/ErrorHandler.scala`:  with SecuredErrorHandler.
+* `app/models/User.scala`: the user class (with its login info: email and encrypted password). For this example, all the users are stored dynamically in a HashMap.
+* `app/models/MailTokenUser.scala`: implements a token for the web page in case to reset a password or confirm a user's email during a sign up. For this example, all the tokens are stored dynamically in a HashMap.
+* `app/utils/silhouette/Module.scala`: module that provides all the required classes for the Dependency Injection.
+* `app/utils/silhouette/AuthController.scala`: declares the Controller will extend all our controllers.
+* `app/utils/silhouette/UserService.scala`: simply retrieves a user from its corresponding LoginInfo.
+* `app/utils/silhouette/PasswordInfoDAO.scala`: simply retrieves and saves a user's PasswordInfo from its corresponding LoginInfo.
+* `app/utils/silhouette/MailTokenUserService.scala`: implements the corresponding MailTokenService[MailToken].
+* `app/utils/silhouette/Authorization.scala`: provides the corresponding `Authorization` classes.
+* `app/utils/ErrorHandler.scala`: with SecuredErrorHandler.
 
 ### Authentication
 

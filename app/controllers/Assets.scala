@@ -1,11 +1,10 @@
 package controllers
 
-import handlers.ErrorHandler
+import utils.ErrorHandler
 import controllers.Assets.Asset
-import play.api.mvc.{ Controller, Action }
-import java.io.File
+import javax.inject.Inject
 
-class MyAssets @javax.inject.Inject() (val errorHandler: ErrorHandler) extends AssetsBuilder(errorHandler) {
+class MyAssets @Inject() (val errorHandler: ErrorHandler) extends AssetsBuilder(errorHandler) {
   def public(path: String, file: Asset) = versioned(path, file)
   def lib(path: String, file: Asset) = versioned(path, file)
   def css(path: String, file: Asset) = versioned(path, file)

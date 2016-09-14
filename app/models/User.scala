@@ -1,7 +1,7 @@
 package models
 
 import utils.silhouette.IdentitySilhouette
-import com.mohiva.play.silhouette.impl.util.BCryptPasswordHasher
+import com.mohiva.play.silhouette.password.BCryptPasswordHasher
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -19,14 +19,15 @@ case class User(
 	* Ex: ("serviceA") -> have access only to general and serviceA areas.
 	* Ex: ("serviceA", "serviceB") -> have access only to general, serviceA and serviceB areas.
 	*/
-		services: List[String]) extends IdentitySilhouette {
+    services: List[String]
+) extends IdentitySilhouette {
   def key = email
   def fullName: String = firstName + " " + lastName
 }
 
 object User {
-	
-	val services = Seq("serviceA", "serviceB", "serviceC")
+
+  val services = Seq("serviceA", "serviceB", "serviceC")
 
   val users = scala.collection.mutable.HashMap[Long, User](
     1L -> User(Some(1L), "master@myweb.com", true, (new BCryptPasswordHasher()).hash("123123").password, "Eddy", "Eddard", "Stark", List("master")),
@@ -36,7 +37,6 @@ object User {
   )
 
   def findByEmail(email: String): Future[Option[User]] = Future.successful(users.find(_._2.email == email).map(_._2))
-  //	def findByEmailMap[A] (email: String)(f: User => A): Future[Option[A]] = findByEmail(email).map(_.map(f))
 
   def save(user: User): Future[User] = {
     // A rudimentary auto-increment feature...
