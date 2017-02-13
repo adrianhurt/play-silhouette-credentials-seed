@@ -21,7 +21,7 @@ import play.api.Configuration
 import net.ceedubs.ficus.Ficus._
 import net.ceedubs.ficus.readers.ArbitraryTypeReader._
 import models.{ User, MailTokenUser }
-import utils.{ MailService, MailServiceImpl, ErrorHandler }
+import utils.ErrorHandler
 
 /**
  * The Guice module which wires all Silhouette dependencies.
@@ -36,7 +36,6 @@ class Module extends AbstractModule with ScalaModule {
     bind[SecuredErrorHandler].to[ErrorHandler]
     bind[UnsecuredErrorHandler].to[ErrorHandler]
     bind[IdentityService[User]].to[UserService]
-    bind[MailService].to[MailServiceImpl]
     bind[MailTokenService[MailTokenUser]].to[MailTokenUserService]
 
     bind[IDGenerator].toInstance(new SecureRandomIDGenerator())
