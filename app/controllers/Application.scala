@@ -42,7 +42,7 @@ class Application @Inject() (val silhouette: Silhouette[MyEnv], val messagesApi:
     Ok(views.html.settings())
   }
 
-  def selectLang(lang: String) = UnsecuredAction { implicit request =>
+  def selectLang(lang: String) = UserAwareAction { implicit request =>
     Logger.logger.debug("Change user lang to : " + lang)
     request.headers.get(REFERER).map { referer =>
       Redirect(referer).withLang(Lang(lang))
