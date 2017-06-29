@@ -22,7 +22,8 @@ class ErrorHandler @Inject() (
 
   // 401 - Unauthorized
   override def onNotAuthenticated(implicit request: RequestHeader): Future[Result] = Future.successful {
-    Redirect(routes.Auth.signIn)
+    val entryUri = request.uri
+    Redirect(routes.Auth.signIn).withCookies(Cookie("ENTRY_URI", entryUri))
   }
 
   // 403 - Forbidden
