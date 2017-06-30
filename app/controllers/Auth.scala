@@ -159,14 +159,14 @@ class Auth @Inject() (
       formWithErrors => Future.successful(BadRequest(viewsAuth.signIn(formWithErrors))),
       formData => {
         val (identifier, password, rememberMe) = formData
-        val entryUri = request.cookies.get("ENTRY_URI").map(_.value)
+        val entryUri = request.session.get("ENTRY_URI")
         val targetUri: String = entryUri.getOrElse(routes.Application.index.toString)
         credentialsProvider.authenticate(Credentials(identifier, password)).flatMap { loginInfo =>
           userService.retrieve(loginInfo).flatMap {
             case Some(user) => for {
               authenticator <- env.authenticatorService.create(loginInfo).map(authenticatorWithRememberMe(_, rememberMe))
               cookie <- env.authenticatorService.init(authenticator)
-              result <- env.authenticatorService.embed(cookie, Redirect(targetUri).discardingCookies(DiscardingCookie("ENTRY_URI")))
+              result <- env.authenticatorService.embed(cookie, Redirect(targetUri).withSession(request.session - "ENTRY_URI"))
             } yield {
               env.eventBus.publish(LoginEvent(user, request))
               result
