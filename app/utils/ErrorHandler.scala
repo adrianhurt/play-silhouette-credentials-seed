@@ -22,7 +22,7 @@ class ErrorHandler @Inject() (
 
   // 401 - Unauthorized
   override def onNotAuthenticated(implicit request: RequestHeader): Future[Result] = Future.successful {
-    Redirect(routes.Auth.signIn)
+    Redirect(routes.Auth.signIn).withSession(request.session + ("ENTRY_URI" -> request.uri))
   }
 
   // 403 - Forbidden
