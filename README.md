@@ -1,8 +1,8 @@
 ## Play Silhouette Credentials Seed [Play 2.5 - Scala]
 
-This project tries to be an example of how to implement an Authentication and Authorization layer using the [Silhouette authentication library](http://silhouette.mohiva.com).
+This project tries to be an example of how to implement an Authentication and Authorization layer using the [Silhouette authentication library](https://www.silhouette.rocks/).
 
-This template only show you how to implement a credential authentication, but it's easy to add the social authentication as well seeing the [Silhouette documentation](http://silhouette.mohiva.com/docs) and other templates like [these](http://silhouette.mohiva.com/docs/examples).
+This template only show you how to implement a credential authentication, but it's easy to add the social authentication as well seeing the [Silhouette documentation](https://www.silhouette.rocks/docs) and other templates like [these](https://www.silhouette.rocks/docs/examples).
 
 It implements the typical authentication and authorization functionality based on roles. You can:
 
@@ -44,7 +44,7 @@ I've implemented `MailService` and `Mailer` to get it easier to use.
 
 ### Silhouette
 
-All the authentication and authorization functionalities are implemented using the [Silhouette authentication library](http://silhouette.mohiva.com). Please check the [documentation](http://silhouette.mohiva.com/docs) first.
+All the authentication and authorization functionalities are implemented using the [Silhouette authentication library](https://www.silhouette.rocks/). Please check the [documentation](https://www.silhouette.rocks/docs) first.
 
 The main ideas you have to know to understand the code are:
 
