@@ -48,7 +48,7 @@ All the authentication and authorization functionalities are implemented using t
 
 The main ideas you have to know to understand the code are:
 
-* Every controller extends `AuthController` that implements some useful utilities, such us the ability to use directly `SecuredAction`, `UnsecuredAction` and `UserAwareAction`
+* Every controller extends `AuthController` that implements some useful utilities, such as the ability to use directly `SecuredAction`, `UnsecuredAction` and `UserAwareAction`
 * The `Auth` controller contains every action related with authentication or authorization.
 * I have used some implicit functions to use `LoginInfo` and `PasswordInfo` objects as simple `Strings` and vice versa. It makes clearer the code, but you have to remember that. You can check them at `app/utils/silhouette/Implicits.scala`.
 
